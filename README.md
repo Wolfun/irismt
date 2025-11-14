@@ -24,13 +24,13 @@
 只要一条命令即可安装：
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/wolfun/irismt/main/mt.sh)
+bash <(curl -s https://raw.githubusercontent.com/wolfun/irismt/master/mt.sh)
 source ~/.bashrc
 ```
 
 下载到本地后执行（备用方式）
 ```bash
-curl -o setup_hacker_prompt.sh https://raw.githubusercontent.com/wolfun/irismt/main/mt.sh
+curl -o setup_hacker_prompt.sh https://raw.githubusercontent.com/wolfun/irismt/master/mt.sh
 chmod +x mt.sh
 ./mt.sh
 source ~/.bashrc
