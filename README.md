@@ -26,12 +26,15 @@
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/wolfun/irismt/main/mt.sh)
 source ~/.bashrc
+```
 
 下载到本地后执行（备用方式）
+```bash
 curl -o setup_hacker_prompt.sh https://raw.githubusercontent.com/wolfun/irismt/main/mt.sh
 chmod +x mt.sh
 ./mt.sh
 source ~/.bashrc
+```
 终端效果展示
 
 安装完成后你的终端会变成这样：
@@ -72,5 +75,7 @@ irismt/
 
 卸载方法（恢复原来的 .bashrc）
 如果你想恢复旧的 bash 配置：
+```bash
 cp ~/.bashrc.bak.* ~/.bashrc
 source ~/.bashrc
+```
