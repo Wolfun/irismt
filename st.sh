@@ -68,7 +68,7 @@ EOF
 restore_from_backup() {
     echo "== 还原 .bashrc 配置 =="
 
-    # 找到所有备份文件
+    # 找到所有的备份文件
     mapfile -t backups < <(ls -1 "${BACKUP_PREFIX}"* 2>/dev/null)
 
     if [ ${#backups[@]} -eq 0 ]; then
