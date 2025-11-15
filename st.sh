@@ -94,7 +94,7 @@ restore_from_backup() {
         fi
 
         if [ "$choice" -eq 0 ]; then
-            echo "已取消还原。"
+            echo "已取消还原"
             return
         fi
 
