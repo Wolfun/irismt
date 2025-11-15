@@ -10,7 +10,7 @@ if [ -f "$BASHRC" ]; then
     echo "已备份原始 $BASHRC 为 $backup_name"
 fi
 
-# 追加自定义主题
+# 追加自定义的主题
 cat << 'EOF' >> "$BASHRC"
 
 # === Hacker style prompt & ls colors (added by setup_hacker_prompt.sh) ===
