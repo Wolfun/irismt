@@ -28,13 +28,13 @@ bash <(curl -s https://raw.githubusercontent.com/Wolfun/irismt/master/iris.sh)
 或者下载运行：
 ```bash
 curl -o irismt.sh https://raw.githubusercontent.com/Wolfun/irismt/master/iris.sh
-chmod +x irismt.sh
-bash irismt.sh
+chmod +x iris.sh
+bash iris.sh
 ```
 
 ⚠ 如果想让美化立即生效，用：
 ```bash
-source irismt.sh
+source iris.sh
 ```
 这样脚本会自动刷新当前终端。
 
