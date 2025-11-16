@@ -27,7 +27,7 @@ remove_old_block() {
 }
 
 # =============================
-# 5 个主题
+# 6 个主题
 # =============================
 
 write_theme_block() {
@@ -116,6 +116,23 @@ export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;3
 EOF
 ;;
 
+# 主题 6 — Ocean Hacker Line（海蓝配色双行）
+6)
+cat << 'EOF' >> "$BASHRC"
+
+# === Hacker style prompt & ls colors (added by irismt) ===
+
+PS1='\n\
+\[\e[38;2;69;171;186m\]┌─[\[\e[38;2;130;205;208m\]\A\[\e[38;2;69;171;186m\]]──[\[\e[38;2;99;141;163m\]\u\[\e[38;2;69;171;186m\]@\[\e[38;2;9;121;113m\]\h\[\e[38;2;69;171;186m\]]\n\
+└─[\[\e[38;2;245;230;99m\]\w\[\e[38;2;69;171;186m\]] ❯ \[\e[0m\]'
+
+alias ls='ls --color=auto'
+export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;32:sg=1;32:tw=32:ow=32'
+
+# === End hacker style ===
+EOF
+            ;;
+
 *)
 echo "❌ 无效主题：$theme"
 ;;
@@ -134,13 +151,14 @@ apply_theme() {
     echo "  3. Matrix OneLine（全绿单行）"
     echo "  4. Info HUD（带时间信息）"
     echo "  5. Azure Hacker Line（浅蓝双行 + 浅绿时间）"
+    echo "  6. Ocean Hacker Line（海蓝配色双行）"
     echo "  0. 返回主菜单"
     echo
 
     local t
     while true; do
-        read -rp "请输入 0-5： " t
-        [[ "$t" =~ ^[0-5]$ ]] || { echo "❌ 请输入 0~5"; continue; }
+        read -rp "请输入 0-6： " t
+        [[ "$t" =~ ^[0-5]$ ]] || { echo "❌ 请输入 0~6"; continue; }
         break
     done
 
