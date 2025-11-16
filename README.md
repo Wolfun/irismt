@@ -33,13 +33,13 @@ bash iris.sh
 ```
 或者这种形式
 ```bash
-bash <(curl -sL https://raw.githubusercontent.com/Wolfun/irismt/master/irismt.sh)
+bash <(curl -sL https://raw.githubusercontent.com/Wolfun/irismt/master/iris.sh)
 ```
 含义：
 curl：去网上把脚本内容拉下来
--s：silent，安静模式，不输出下载进度条
--L：follow redirect，如果 URL 有 301/302 重定向，会自动跟过去
-bash <( … )：进程替换，把 curl 输出当成一个“临时文件”喂给 bash 执行
+- -s：silent，安静模式，不输出下载进度条
+- -L：follow redirect，如果 URL 有 301/302 重定向，会自动跟过去
+- bash <( … )：进程替换，把 curl 输出当成一个“临时文件”喂给 bash 执行
 等价于：“从这个网址下载脚本 → 不保存到磁盘 → 直接交给 bash 运行”。
 
 ⚠ 如果想让美化立即生效，用：
