@@ -93,7 +93,7 @@ cat << 'EOF' >> "$BASHRC"
 PS1='\[\e[1;36m\][\A]\[\e[0m\] \[\e[1;31m\]\u\[\e[0m\]@\[\e[1;34m\]\h\[\e[0m\]:\[\e[1;33m\]\w\[\e[0m\]# '
 
 alias ls='ls --color=auto'
-export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;32:sg=1;32:tw=32:ow=32'
+export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;32:sg=1:32:tw=32:ow=32'
 
 # === End hacker style ===
 EOF
@@ -116,7 +116,7 @@ export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;3
 EOF
 ;;
 
-# 主题 6 — Ocean Hacker Line（海蓝配色双行）
+# 主题 6 — Ocean Hacker Line（海蓝配色双行，> 结尾）
 6)
 cat << 'EOF' >> "$BASHRC"
 
@@ -124,14 +124,14 @@ cat << 'EOF' >> "$BASHRC"
 
 PS1='\n\
 \[\e[38;2;69;171;186m\]┌─[\[\e[38;2;130;205;208m\]\A\[\e[38;2;69;171;186m\]]──[\[\e[38;2;99;141;163m\]\u\[\e[38;2;69;171;186m\]@\[\e[38;2;9;121;113m\]\h\[\e[38;2;69;171;186m\]]\n\
-└─[\[\e[38;2;245;230;99m\]\w\[\e[38;2;69;171;186m\]] ❯ \[\e[0m\]'
+└─[\[\e[38;2;245;230;99m\]\w\[\e[38;2;69;171;186m\]] > \[\e[0m\]'
 
 alias ls='ls --color=auto'
 export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;32:sg=1;32:tw=32:ow=32'
 
 # === End hacker style ===
 EOF
-            ;;
+;;
 
 *)
 echo "❌ 无效主题：$theme"
@@ -141,7 +141,7 @@ esac
 }
 
 # =============================
-# 应用主题
+# 应用主题（已修正 0–6 选择问题）
 # =============================
 apply_theme() {
     echo "== 选择美化方案 =="
@@ -158,11 +158,20 @@ apply_theme() {
     local t
     while true; do
         read -rp "请输入 0-6： " t
-        [[ "$t" =~ ^[0-5]$ ]] || { echo "❌ 请输入 0~6"; continue; }
-        break
+        case "$t" in
+            0|1|2|3|4|5|6)
+                break
+                ;;
+            *)
+                echo "❌ 请输入 0~6"
+                ;;
+        esac
     done
 
-    [[ "$t" -eq 0 ]] && return
+    if [ "$t" = "0" ]; then
+        echo "已取消美化，返回主菜单。"
+        return
+    fi
 
     backup_bashrc
     remove_old_block
@@ -227,53 +236,6 @@ restore_from_backup() {
 change_hostname() {
     echo "== 修改 hostname =="
 
-    current_host=$(hostname)
-    echo "当前 hostname：$current_host"
-    echo
+    current_host
 
-    read -rp "请输入新的 hostname： " newhost
-
-    if [[ -z "$newhost" ]]; then
-        echo "❌ hostname 不能为空"
-        return
-    fi
-
-    if [[ $EUID -ne 0 ]]; then
-        echo "❌ 错误：需要 root 才能更改 hostname"
-        return
-    fi
-
-    hostnamectl set-hostname "$newhost"
-
-    # 更新 /etc/hosts
-    sed -i "s/$current_host/$newhost/g" /etc/hosts
-
-    echo "✅ hostname 修改成功：$newhost"
-    echo "👉 建议重新登录使提示符立即更新"
-}
-
-# =============================
-# 菜单
-# =============================
-main_menu() {
-    while true; do
-        echo
-        echo "============== irismt 菜单 =============="
-        echo "  1. 选择并应用终端美化方案（5 主题）"
-        echo "  2. 从备份列表中选择版本还原 .bashrc"
-        echo "  3. 修改 hostname（主机名）"
-        echo "  0. 退出"
-        echo "========================================="
-        read -rp "请输入选项： " opt
-
-        case "$opt" in
-            1) apply_theme ;;
-            2) restore_from_backup ;;
-            3) change_hostname ;;
-            0) echo "退出脚本"; break ;;
-            *) echo "❌ 无效选项" ;;
-        esac
-    done
-}
-
-main_menu
+::contentReference[oaicite:0]{index=0}
