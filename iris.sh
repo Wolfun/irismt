@@ -37,8 +37,8 @@ write_theme_block() {
 
     case "$theme" in
 
-# 主题 1 — Hacker Green Line
-1)
+        # 主题 1 — Hacker Green Line
+        1)
 cat << 'EOF' >> "$BASHRC"
 
 # === Hacker style prompt & ls colors (added by irismt) ===
@@ -52,10 +52,10 @@ export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;3
 
 # === End hacker style ===
 EOF
-;;
+            ;;
 
-# 主题 2 — Cyber Arrow
-2)
+        # 主题 2 — Cyber Arrow
+        2)
 cat << 'EOF' >> "$BASHRC"
 
 # === Hacker style prompt & ls colors (added by irismt) ===
@@ -67,10 +67,10 @@ export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;3
 
 # === End hacker style ===
 EOF
-;;
+            ;;
 
-# 主题 3 — Matrix OneLine
-3)
+        # 主题 3 — Matrix OneLine
+        3)
 cat << 'EOF' >> "$BASHRC"
 
 # === Hacker style prompt & ls colors (added by irismt) ===
@@ -82,10 +82,10 @@ export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;3
 
 # === End hacker style ===
 EOF
-;;
+            ;;
 
-# 主题 4 — Info HUD
-4)
+        # 主题 4 — Info HUD
+        4)
 cat << 'EOF' >> "$BASHRC"
 
 # === Hacker style prompt & ls colors (added by irismt) ===
@@ -93,14 +93,14 @@ cat << 'EOF' >> "$BASHRC"
 PS1='\[\e[1;36m\][\A]\[\e[0m\] \[\e[1;31m\]\u\[\e[0m\]@\[\e[1;34m\]\h\[\e[0m\]:\[\e[1;33m\]\w\[\e[0m\]# '
 
 alias ls='ls --color=auto'
-export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;32:sg=1:32:tw=32:ow=32'
+export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;32:sg=1;32:tw=32:ow=32'
 
 # === End hacker style ===
 EOF
-;;
+            ;;
 
-# 主题 5 — Azure Hacker Line（浅蓝框 + 浅绿时间）
-5)
+        # 主题 5 — Azure Hacker Line（浅蓝框 + 浅绿时间）
+        5)
 cat << 'EOF' >> "$BASHRC"
 
 # === Hacker style prompt & ls colors (added by irismt) ===
@@ -114,10 +114,10 @@ export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;3
 
 # === End hacker style ===
 EOF
-;;
+            ;;
 
-# 主题 6 — Ocean Hacker Line（海蓝配色双行，> 结尾）
-6)
+        # 主题 6 — Ocean Hacker Line（海蓝配色双行，> 结尾）
+        6)
 cat << 'EOF' >> "$BASHRC"
 
 # === Hacker style prompt & ls colors (added by irismt) ===
@@ -131,17 +131,16 @@ export LS_COLORS='di=1;32:ln=1;36:so=1;32:pi=1;32:ex=1;32:bd=1;32:cd=1;32:su=1;3
 
 # === End hacker style ===
 EOF
-;;
+            ;;
 
-*)
-echo "❌ 无效主题：$theme"
-;;
-
-esac
+        *)
+            echo "❌ 无效主题：$theme"
+            ;;
+    esac
 }
 
 # =============================
-# 应用主题（已修正 0–6 选择问题）
+# 应用主题（修正 0–6 选择）
 # =============================
 apply_theme() {
     echo "== 选择美化方案 =="
@@ -231,11 +230,66 @@ restore_from_backup() {
 }
 
 # =============================
-# 新增功能 3：自定义 hostname
+# 功能 3：自定义 hostname
 # =============================
 change_hostname() {
     echo "== 修改 hostname =="
 
-    current_host
+    local current_host newhost
+    current_host=$(hostname)
+    echo "当前 hostname：$current_host"
+    echo
 
-::contentReference[oaicite:0]{index=0}
+    read -rp "请输入新的 hostname： " newhost
+
+    if [[ -z "$newhost" ]]; then
+        echo "❌ hostname 不能为空"
+        return
+    fi
+
+    if [[ $EUID -ne 0 ]]; then
+        echo "❌ 错误：需要 root 才能更改 hostname"
+        return
+    fi
+
+    hostnamectl set-hostname "$newhost"
+
+    # 更新 /etc/hosts
+    if [ -f /etc/hosts ]; then
+        sed -i "s/$current_host/$newhost/g" /etc/hosts
+    fi
+
+    echo "✅ hostname 修改成功：$newhost"
+    echo "👉 建议重新登录使提示符立即更新"
+}
+
+# =============================
+# 菜单
+# =============================
+main_menu() {
+    while true; do
+        echo
+        echo "============== irismt 菜单 =============="
+        echo "  1. 选择并应用终端美化方案（6 主题）"
+        echo "  2. 从备份列表中选择版本还原 .bashrc"
+        echo "  3. 修改 hostname（主机名）"
+        echo "  0. 退出"
+        echo "========================================="
+        read -rp "请输入选项： " opt
+
+        case "$opt" in
+            1) apply_theme ;;
+            2) restore_from_backup ;;
+            3) change_hostname ;;
+            0)
+                echo "退出脚本"
+                break
+                ;;
+            *)
+                echo "❌ 无效选项"
+                ;;
+        esac
+    done
+}
+
+main_menu
