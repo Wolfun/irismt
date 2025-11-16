@@ -150,7 +150,7 @@ apply_theme() {
     echo "  3. Matrix OneLine（全绿单行）"
     echo "  4. Info HUD（带时间信息）"
     echo "  5. Azure Hacker Line（浅蓝双行 + 浅绿时间）"
-    echo "  6. Ocean Hacker Line（海蓝配色双行#替换>）"
+    echo "  6. Ocean Hacker Line（海蓝配色双行 # 替换 >）"
     echo "  0. 返回主菜单"
     echo
 
