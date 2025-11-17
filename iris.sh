@@ -125,6 +125,7 @@ EOF
 }
 
 classic_menu() {
+    clear
     echo "== 固定主题（非双行样式） =="
     echo "  1. Cyber Arrow（单行箭头风）"
     echo "  2. Matrix OneLine（全绿单行）"
@@ -406,6 +407,7 @@ twoline_builtin_menu() {
 }
 
 twoline_menu() {
+    clear
     echo "== 双行 TwoLine 主题系统 =="
     echo "  1. 使用内置冷色方案（Ocean / NightSky / Ice）"
     echo "  2. 创建 / 应用自定义方案"
@@ -450,6 +452,7 @@ twoline_menu() {
 # 3. 备份 / 还原
 # =============================
 backup_restore_menu() {
+    clear
     echo "== 备份 / 还原 .bashrc =="
 
     mapfile -t backups < <(ls -1 "${BACKUP_PREFIX}"* 2>/dev/null)
@@ -495,6 +498,7 @@ backup_restore_menu() {
 # 4. 修改 hostname
 # =============================
 change_hostname() {
+    clear
     echo "== 修改 hostname =="
 
     local current_host newhost
@@ -529,9 +533,10 @@ change_hostname() {
 # =============================
 main_menu() {
     while true; do
+        clear   # ← 每次回到主菜单先清屏
         echo
         echo "============== iris 终端主题管理 =============="
-        echo "  1. 固定主题（非双行样式，含原有方案+3 新）"
+        echo "  1. 固定主题（非双行样式，6种方案）"
         echo "  2. 双行 TwoLine 主题（内置 + 自定义 + 删除）"
         echo "  3. 备份 / 还原 .bashrc"
         echo "  4. 修改 hostname（主机名）"
