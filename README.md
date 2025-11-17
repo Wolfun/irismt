@@ -22,18 +22,18 @@ irismt（Iris Multi Theme）是一个 **终端提示符美化工具**，具有�
 ## 🚀 一键运行（推荐）
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/Wolfun/irismt/master/iris.sh)
+bash <(curl -s https://raw.githubusercontent.com/Wolfun/irismt/main/iris.sh)
 ```
 
 或者下载运行：
 ```bash
-curl -o irismt.sh https://raw.githubusercontent.com/Wolfun/irismt/master/iris.sh
+curl -o irismt.sh https://raw.githubusercontent.com/Wolfun/irismt/main/iris.sh
 chmod +x iris.sh
 bash iris.sh
 ```
 或者这种形式
 ```bash
-bash <(curl -sL https://raw.githubusercontent.com/Wolfun/irismt/master/iris.sh)
+bash <(curl -sL https://raw.githubusercontent.com/Wolfun/irismt/main/iris.sh)
 ```
 含义：
 curl：去网上把脚本内容拉下来
